@@ -1,7 +1,7 @@
 var TwitterStrategy = require('passport-twitter').Strategy;
 var ntwitter = require('ntwitter');
 
-var loggedUsr={};
+
 
 module.exports = function (app, passport) {
 	passport.use(new TwitterStrategy({
@@ -10,10 +10,11 @@ module.exports = function (app, passport) {
 	    callbackURL:    '/auth/twitter/callback'
 	    },
 	    function(token, tokenSecret, profile, done) {
+	    	var loggedUsr={};
 	        loggedUsr.token=token;
 	        loggedUsr.tokenSecret=tokenSecret;
 	        loggedUsr.user=profile;
-	        done(null, profile);
+	        done(null, loggedUsr);
 	    }
 	));
 
@@ -34,8 +35,8 @@ module.exports = function (app, passport) {
 	        var twit = new ntwitter({
 	            consumer_key: app.get('TWITTER_CONSUMER_KEY'),
 	            consumer_secret: app.get('TWITTER_CONSUMER_SECRET'),
-	            access_token_key: loggedUsr.token,
-	            access_token_secret: loggedUsr.tokenSecret
+	            access_token_key: req.user.token,
+	            access_token_secret: req.user.tokenSecret
 	        });
 
 	       twit.verifyCredentials(function (err, data) {
