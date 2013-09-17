@@ -1,5 +1,5 @@
 {
-    "name": "Node Twitter API 1.1 Example",
+    "name": "node-twitter-example",
     "version": "0.0.1",
     "private": false,
     "dependencies": {
