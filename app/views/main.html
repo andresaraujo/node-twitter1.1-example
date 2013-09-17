@@ -1,9 +1,13 @@
 <div class="hero-unit">
-  <h1>'Dropwizard with Angular Example!!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding!</h3>
+  	<h4>Node-Angularjs-Twitter Example!!</h4>
+	<div ng-hide="isAuth">
+		<a href="/auth/twitter">Sign in with Twitter</a>
+    </div>
+  	<div ng-hide="!isAuth">
+		<input type="text" ng-model="query.q" value="{{query.q}}"/>
+	  	<input type="button" ng-click="searchTwits()" value="Search Twits!"/>
+	  	<ul>
+	    	<li ng-repeat="t in twits">{{t.text}}</li>
+	  	</ul>
+  	</div>
 </div>

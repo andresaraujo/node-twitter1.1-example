@@ -31,6 +31,7 @@ module.exports = function (app, passport) {
 	    passport.authenticate('twitter', { successRedirect: '/', failureRedirect: '/login' }));
 
 	app.get('/api/search', function (req, res) {
+		console.log(req.query);
 		if(req.user){
 	        var twit = new ntwitter({
 	            consumer_key: app.get('TWITTER_CONSUMER_KEY'),
@@ -45,7 +46,7 @@ module.exports = function (app, passport) {
 	              console.log("Verification failed : " + err)
 	              res.send("Something went wrong :(");
 	            }
-	        }).search('#node', {count:3}, function(err, data) {
+	        }).search(req.query.q, {count:3}, function(err, data) {
 	            if(err){
 	                console.log("Verification failed : " + err)
 	                res.send("Something went wrong :(");
@@ -64,6 +65,16 @@ module.exports = function (app, passport) {
 	        });
 	    } else {
 	        res.send('<a href="/auth/twitter">Sign in with Twitter</a>');
+	    }
+	});
+	app.get('/api/auth', function (req, res) {
+		var result={};
+		if(req.user){
+			result.msg="Verification ok";
+	        res.send(result);
+	    } else {
+	        result.err="Verification failed";
+	        res.send(result);
 	    }
 	});
 
