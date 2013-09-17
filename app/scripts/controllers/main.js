@@ -5,24 +5,23 @@ angular.module('NgAppApp')
     $scope.twits = [];
     $scope.isAuth=false;
     $scope.query={
-    	q:"#angularjs",
+        q:'#angularjs'
     };
 
     TwitterSvc.isAuth().then(function(data){
-    	if(data.err){
-    		$scope.isAuth=false;
-    		//$window.location.href='/auth/twitter';
-    	}else{
-    		$scope.isAuth=true;
-    	}
+        if(data.err){
+            $scope.isAuth=false;
+            //$window.location.href='/auth/twitter';
+        }else{
+            $scope.isAuth=true;
+        }
     });
     $scope.searchTwits= function(){
-    	$scope.twits.length = 0;
-    	TwitterSvc.search($scope.query).then(function(data){
-	        angular.forEach(data, function(value, key){
-	            $scope.twits.push(value);
-	        });
-	        
-    	});
+        $scope.twits.length = 0;
+        TwitterSvc.search($scope.query).then(function(data){
+            angular.forEach(data, function(value, key){
+                $scope.twits.push(value);
+            });
+        });
     };
 }]);

@@ -10,14 +10,28 @@ describe('Controller: MainCtrl', function () {
 
   beforeEach(function () {
           mockService = {
-              get: function () {
+              search: function () {
                   deferred = q.defer();
                   // Place the fake return object here
-                  deferred.resolve([{id: 1, name: 'Java'}, {id:2, name: 'Dropwizard'}]);
+                  deferred.resolve([{
+                    "id": 10101010101011,
+                    "text": "Fake twit",
+                    "screen_name": "amarokaz"
+                  }]);
+                  return deferred.promise;
+              },
+              isAuth: function () {
+                  deferred = q.defer();
+                  // Place the fake return object here
+                  var result={};
+                  result.err="Verification failed";
+                  deferred.resolve(result);
                   return deferred.promise;
               }
+
           };
-          spyOn(mockService, 'get').andCallThrough();
+          spyOn(mockService, 'search').andCallThrough();
+          spyOn(mockService, 'isAuth').andCallThrough();
       });
 
   // Initialize the controller
@@ -31,21 +45,22 @@ describe('Controller: MainCtrl', function () {
     //Declare controller with mock objects
     MainCtrl = $controller('MainCtrl', {
       $scope: scope,
-      DummySvc: mockService
+      TwitterSvc: mockService
     });
   }));
 
-  it('awesomeThings Should have be defined and have zero objects', function () {
+  it('Array twits Should have be defined and have zero objects', function () {
         // Before $apply is called the promise hasn't resolved
-        expect(scope.awesomeThings).toBeDefined();
-        expect(scope.awesomeThings.length).toBe(0);
+        expect(scope.twits).toBeDefined();
+        expect(scope.twits.length).toBe(0);
   });
-  it('awesomeThings Should have be defined and have two objects', function () {
-          // This propagates the changes to the models
-          // This happens itself when you're on a web page, but not in a unit test framework
-          scope.$apply();
-          expect(scope.awesomeThings).toBeDefined();
-          expect(scope.awesomeThings.length).toBe(2);
+  it('Array twits Should have be defined and have one objects', function () {
+        // This propagates the changes to the models
+        // This happens itself when you're on a web page, but not in a unit test framework
+        scope.searchTwits();
+        scope.$apply();
+        expect(scope.twits).toBeDefined();
+        expect(scope.twits.length).toBe(1);
   });
 
 });
