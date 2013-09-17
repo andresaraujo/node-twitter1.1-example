@@ -15,8 +15,8 @@ app.configure(function() {
     // Set environment
     app.set('port', process.env.PORT || 3000);
     app.set('hostname', 'localhost');
-    app.set('TWITTER_CONSUMER_KEY', 'Rduxy5vhHYLVfYRVOAfSeg');
-    app.set('TWITTER_CONSUMER_SECRET', 'KWWUSiiGewSm2Glci9KRkVdFxvrDGB41SXpGbZURzk');
+    app.set('TWITTER_CONSUMER_KEY', process.env.TWITTER_CONSUMER_KEY);
+    app.set('TWITTER_CONSUMER_SECRET', process.env.TWITTER_CONSUMER_SECRET);
 });
 
 // Use compiled sources(dist) if in production env
