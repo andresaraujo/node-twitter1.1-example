@@ -5,10 +5,10 @@ Basic example of using Twitter 1.1 API with node
 
 It uses: 
 -------------------------------------
--Passportjs for authentification http://passportjs.org/
--ntwitter for API calls 
--expressjs
--angularjs 
+- Passportjs for authentification http://passportjs.org/
+- ntwitter for API calls 
+- expressjs
+- angularjs 
 
 How to run example
 -------------------------------------
